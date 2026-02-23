@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # Base de données S3-like (MinIO)
+  minio:
+    image: minio/minio:latest
+    container_name: assistia-minio
+    restart: unless-stopped
+    ports:
+      - "9000:9000" # API S3
+      - "9001:9001" # Web UI Console
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-supersecretadmin}
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - assistia-network
+
+  # Création automatique du bucket par défaut
+  minio-init:
+    image: minio/mc:latest
+    container_name: assistia-minio-init
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc alias set myminio http://minio:9000 ${MINIO_ROOT_USER:-admin} ${MINIO_ROOT_PASSWORD:-supersecretadmin};
+      /usr/bin/mc mb myminio/assistia-documents --ignore-existing;
+      /usr/bin/mc anonymous set private myminio/assistia-documents;
+      exit 0;
+      "
+    networks:
+      - assistia-network
+
+  # Application Frontend/Backend SvelteKit
+  # Décommenter une fois le projet SvelteKit initialisé
+  # web:
+  #   build:
+  #     context: ./src
+  #     dockerfile: Dockerfile
+  #   container_name: assistia-web
+  #   restart: unless-stopped
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - PUBLIC_APPWRITE_ENDPOINT=http://localhost/v1
+  #     - PUBLIC_APPWRITE_PROJECT=${PUBLIC_APPWRITE_PROJECT}
+  #     - MINIO_ENDPOINT=http://localhost:9000
+  #     - MINIO_ACCESS_KEY=${MINIO_ROOT_USER:-admin}
+  #     - MINIO_SECRET_KEY=${MINIO_ROOT_PASSWORD:-supersecretadmin}
+  #   depends_on:
+  #     - minio
+  #   networks:
+  #     - assistia-network
+
+volumes:
+  minio_data:
+
+networks:
+  assistia-network:
+    driver: bridge
