@@ -4,12 +4,13 @@
 **Période :** Février 2026
 
 ## TODO
-- [ ] Rien pour le moment
+- [ ] Préparer les User Stories initiales à partir du PRD
 
 ## IN PROGRESS
-- [ ] Réviser le PRD et la documentation Agile (En cours)
+- [ ] Rien pour le moment
 
 ## DONE
+- [x] Réviser le PRD et la documentation Agile
 - [x] Initialiser le projet SvelteKit dans `src/`
 - [x] Mettre en place la stack Docker (Appwrite, MinIO) via docker-compose
 - [x] Initialisation du Backlog et du Sprint courant
