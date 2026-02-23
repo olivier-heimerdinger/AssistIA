@@ -1,0 +1,34 @@
+
+services:
+  # Base de données S3-like (MinIO) ajoutée à l'architecture Appwrite
+  minio:
+    image: minio/minio:latest
+    container_name: assistia-minio
+    restart: unless-stopped
+    ports:
+      - "9000:9000" # API S3
+      - "9001:9001" # Web UI Console
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-supersecretadmin}
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - appwrite
+
+  # Création automatique du bucket par défaut
+  minio-init:
+    image: minio/mc:latest
+    container_name: assistia-minio-init
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c " /usr/bin/mc alias set myminio http://minio:9000 $${MINIO_ROOT_USER:-admin} $${MINIO_ROOT_PASSWORD:-supersecretadmin}; /usr/bin/mc mb myminio/assistia-documents --ignore-existing; /usr/bin/mc anonymous set private myminio/assistia-documents; exit 0; "
+    networks:
+      - appwrite
+
+volumes:
+  minio_data:
+
+    # Note : le subnet "appwrite" est déjà déclaré dans le docker-compose.yml d'Appwrite
