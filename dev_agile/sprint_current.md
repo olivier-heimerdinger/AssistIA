@@ -4,13 +4,14 @@
 **Période :** Février 2026
 
 ## TODO
-- [ ] Mettre en place la stack Docker (Appwrite, SvelteKit, MinIO)
-- [ ] Initialiser le projet SvelteKit dans `src/`
+- [ ] Rien pour le moment
 
 ## IN PROGRESS
 - [ ] Réviser le PRD et la documentation Agile (En cours)
 
 ## DONE
+- [x] Initialiser le projet SvelteKit dans `src/`
+- [x] Mettre en place la stack Docker (Appwrite, MinIO) via docker-compose
 - [x] Initialisation du Backlog et du Sprint courant
 - [x] Création du système de suivi GitHub (`github_workflow.md`)
 - [x] Création du prompt AI système (`ai_system_prompt.md`)
