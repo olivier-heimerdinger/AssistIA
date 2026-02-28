@@ -121,7 +121,7 @@ Pour assurer un développement itératif (Agile) et maintenir une documentation 
 
 ## 7. Sécurité & Confidentialité
 
-* **Authentification & RBAC :** Gestion stricte des rôles via Appwrite. Un client n'accède qu'aux documents de son propre groupe.
+* **Authentification & RBAC :** Gestion stricte des rôles via Appwrite. Un client n'accède qu'aux documents de son propre groupe. Voir la définition détaillée dans [roles.md](file:///Users/olhei/Dev/Assistant/docs/02_architecture/roles.md).
 * **Confidentialité IA :** Possibilité d'utiliser des modèles locaux (ex. Ollama) pour garantir que les données sensibles ne quittent pas l'infrastructure (mode "Privacy First"), ou anonymisation préalable avant envoi vers OpenAI/Anthropic.
 
 ## 8. Évolutions Futures (Post-MVP)

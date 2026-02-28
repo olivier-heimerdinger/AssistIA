@@ -4,6 +4,13 @@
 - [ ] Mettre en place la stack Docker (Appwrite, SvelteKit, MinIO)
 - [ ] Configurer les collections Appwrite (Profils, Clients, RDVs, Factures, Groupes)
 - [ ] Paramétrer les droits et accès Appwrite (RBAC)
+- [ ] **Refactoring Docker** :
+    - [ ] Utiliser un réseau bridge pour Appwrite (domaine unique)
+    - [ ] Utiliser le backend pour stocker toutes les données plutôt qu'Appwrite directement
+    - [ ] Implémenter WebSockets pour les mises à jour temps réel
+    - [ ] Utiliser des chemins relatifs pour l'administration Appwrite et MinIO
+    - [ ] Utiliser des chemins relatifs pour les images et fichiers
+    - [ ] Remplacer MinIO par rustFS
 
 ## Epic 2 : Authentification & Espace Client
 - [ ] Créer le flux de connexion pour le Secrétaire (Admin)
@@ -21,6 +28,7 @@
 - [ ] Créer l'export PDF (via html2pdf, jsPDF ou similaire)
 - [ ] Faire le lien entre le stockage local / éditeur et le bucket S3 (MinIO)
 - [ ] Gérer l'envoi de documents par email (Notification Multicanal)
+- [ ] **Refactoring Frontend** : utiliser des polices basiques ou importer les polices localement (asset folder)
 
 ## Epic 5 : Super Admin & Evolutions (MCP)
 - [ ] Créer le Dashboard Super Admin (gestion quotas S3, stats IA, comptes utilisateurs)
