@@ -43,15 +43,16 @@ services:
       - traefik.constraint-label-stack=appwrite
       - traefik.docker.network=appwrite
       - traefik.http.services.appwrite_api.loadbalancer.server.port=80
-      #http
-      - traefik.http.routers.appwrite_api_http.entrypoints=appwrite_web
-      - traefik.http.routers.appwrite_api_http.rule=PathPrefix(`/`)
-      - traefik.http.routers.appwrite_api_http.service=appwrite_api
+      - "traefik.http.routers.appwrite_api_http.entrypoints=appwrite_web"
+      - "traefik.http.routers.appwrite_api_http.rule=PathPrefix(`/v1`) || PathPrefix(`/auth`) || PathPrefix(`/.well-known`)"
+      - "traefik.http.routers.appwrite_api_http.service=appwrite_api"
+      - "traefik.http.routers.appwrite_api_http.priority=100"
       # https
-      - traefik.http.routers.appwrite_api_https.entrypoints=appwrite_websecure
-      - traefik.http.routers.appwrite_api_https.rule=PathPrefix(`/`)
-      - traefik.http.routers.appwrite_api_https.service=appwrite_api
-      - traefik.http.routers.appwrite_api_https.tls=true
+      - "traefik.http.routers.appwrite_api_https.entrypoints=appwrite_websecure"
+      - "traefik.http.routers.appwrite_api_https.rule=PathPrefix(`/v1`) || PathPrefix(`/auth`) || PathPrefix(`/.well-known`)"
+      - "traefik.http.routers.appwrite_api_https.service=appwrite_api"
+      - "traefik.http.routers.appwrite_api_https.tls=true"
+      - "traefik.http.routers.appwrite_api_https.priority=100"
     volumes:
       - appwrite-uploads:/storage/uploads:rw
       - appwrite-cache:/storage/cache:rw
@@ -61,7 +62,7 @@ services:
     depends_on:
       - mariadb
       - redis
-#      - clamav
+    #      - clamav
     environment:
       - _APP_ENV
       - _APP_WORKER_PER_CORE
@@ -169,14 +170,16 @@ services:
       - "traefik.docker.network=appwrite"
       - "traefik.http.services.appwrite_console.loadbalancer.server.port=80"
       #ws
-      - traefik.http.routers.appwrite_console_http.entrypoints=appwrite_web
-      - traefik.http.routers.appwrite_console_http.rule=PathPrefix(`/console`)
-      - traefik.http.routers.appwrite_console_http.service=appwrite_console
+      - "traefik.http.routers.appwrite_console_http.entrypoints=appwrite_web"
+      - "traefik.http.routers.appwrite_console_http.rule=PathPrefix(`/console`)"
+      - "traefik.http.routers.appwrite_console_http.service=appwrite_console"
+      - "traefik.http.routers.appwrite_console_http.priority=100"
       # wss
-      - traefik.http.routers.appwrite_console_https.entrypoints=appwrite_websecure
-      - traefik.http.routers.appwrite_console_https.rule=PathPrefix(`/console`)
-      - traefik.http.routers.appwrite_console_https.service=appwrite_console
-      - traefik.http.routers.appwrite_console_https.tls=true
+      - "traefik.http.routers.appwrite_console_https.entrypoints=appwrite_websecure"
+      - "traefik.http.routers.appwrite_console_https.rule=PathPrefix(`/console`)"
+      - "traefik.http.routers.appwrite_console_https.service=appwrite_console"
+      - "traefik.http.routers.appwrite_console_https.tls=true"
+      - "traefik.http.routers.appwrite_console_https.priority=100"
 
   appwrite-realtime:
     image: appwrite/appwrite:1.6.0
@@ -190,14 +193,16 @@ services:
       - "traefik.docker.network=appwrite"
       - "traefik.http.services.appwrite_realtime.loadbalancer.server.port=80"
       #ws
-      - traefik.http.routers.appwrite_realtime_ws.entrypoints=appwrite_web
-      - traefik.http.routers.appwrite_realtime_ws.rule=PathPrefix(`/v1/realtime`)
-      - traefik.http.routers.appwrite_realtime_ws.service=appwrite_realtime
+      - "traefik.http.routers.appwrite_realtime_ws.entrypoints=appwrite_web"
+      - "traefik.http.routers.appwrite_realtime_ws.rule=PathPrefix(`/v1/realtime`)"
+      - "traefik.http.routers.appwrite_realtime_ws.service=appwrite_realtime"
+      - "traefik.http.routers.appwrite_realtime_ws.priority=200"
       # wss
-      - traefik.http.routers.appwrite_realtime_wss.entrypoints=appwrite_websecure
-      - traefik.http.routers.appwrite_realtime_wss.rule=PathPrefix(`/v1/realtime`)
-      - traefik.http.routers.appwrite_realtime_wss.service=appwrite_realtime
-      - traefik.http.routers.appwrite_realtime_wss.tls=true
+      - "traefik.http.routers.appwrite_realtime_wss.entrypoints=appwrite_websecure"
+      - "traefik.http.routers.appwrite_realtime_wss.rule=PathPrefix(`/v1/realtime`)"
+      - "traefik.http.routers.appwrite_realtime_wss.service=appwrite_realtime"
+      - "traefik.http.routers.appwrite_realtime_wss.tls=true"
+      - "traefik.http.routers.appwrite_realtime_wss.priority=200"
     networks:
       - appwrite
     depends_on:
@@ -851,10 +856,7 @@ services:
     <<: *x-logging
     restart: unless-stopped
     command: >
-      redis-server
-      --maxmemory            512mb
-      --maxmemory-policy     allkeys-lru
-      --maxmemory-samples    5
+      redis-server --maxmemory            512mb --maxmemory-policy     allkeys-lru --maxmemory-samples    5
     networks:
       - appwrite
     volumes:
@@ -868,6 +870,60 @@ services:
   #     - appwrite
   #   volumes:
   #     - appwrite-uploads:/storage/uploads
+
+  frontend:
+    image: node:20-alpine
+    container_name: assistia-frontend
+    working_dir: /app
+    volumes:
+      - ./src:/app
+    command: sh -c "npm install && npm run dev -- --host"
+    networks:
+      - appwrite
+    labels:
+      - "traefik.enable=true"
+      - "traefik.constraint-label-stack=appwrite"
+      - "traefik.docker.network=appwrite"
+      - "traefik.http.services.frontend.loadbalancer.server.port=5173"
+      - "traefik.http.routers.frontend_http.entrypoints=appwrite_web"
+      - "traefik.http.routers.frontend_http.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.frontend_http.priority=10"
+      - "traefik.http.routers.frontend_https.entrypoints=appwrite_websecure"
+      - "traefik.http.routers.frontend_https.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.frontend_https.priority=10"
+      - "traefik.http.routers.frontend_https.tls=true"
+
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: assistia-rustfs
+    restart: unless-stopped
+    networks:
+      - appwrite
+    ports:
+      - 9000:9000
+    volumes:
+      - rustfs-data:/data
+    environment:
+      - RUSTFS_ACCESS_KEY=rustfsadmin
+      - RUSTFS_SECRET_KEY=rustfsadmin
+      - RUSTFS_CONSOLE_ENABLE=true
+      - RUSTFS_ADDRESS=:9000
+    command: --address :9000 --console-enable --access-key rustfsadmin --secret-key rustfsadmin /data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.constraint-label-stack=appwrite"
+      - "traefik.docker.network=appwrite"
+      - "traefik.http.services.rustfs_console.loadbalancer.server.port=9001"
+      - "traefik.http.middlewares.rustfs_strip.stripprefix.prefixes=/storage"
+      - "traefik.http.routers.rustfs_console_http.rule=PathPrefix(`/storage`)"
+      - "traefik.http.routers.rustfs_console_http.middlewares=rustfs_strip"
+      - "traefik.http.routers.rustfs_console_http.entrypoints=appwrite_web"
+      - "traefik.http.routers.rustfs_console_http.priority=100"
+      - "traefik.http.routers.rustfs_console_https.rule=PathPrefix(`/storage`)"
+      - "traefik.http.routers.rustfs_console_https.middlewares=rustfs_strip"
+      - "traefik.http.routers.rustfs_console_https.entrypoints=appwrite_websecure"
+      - "traefik.http.routers.rustfs_console_https.tls=true"
+      - "traefik.http.routers.rustfs_console_https.priority=100"
 
 networks:
   gateway:
@@ -886,3 +942,6 @@ volumes:
   appwrite-functions:
   appwrite-builds:
   appwrite-config:
+  rustfs-data:
+
+

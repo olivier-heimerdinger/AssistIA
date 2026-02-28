@@ -10,6 +10,7 @@
 - [ ] Rien pour le moment
 
 ## DONE
+- [x] Refactoring Docker (Traefik unique, rustFS, SvelteKit conteneurisé)
 - [x] Préparer les User Stories initiales à partir du PRD
 - [x] Réviser le PRD et la documentation Agile
 - [x] Initialiser le projet SvelteKit dans `src/`
@@ -19,6 +20,7 @@
 - [x] Création du prompt AI système (`ai_system_prompt.md`)
 - [x] Initialisation du dépôt Git local et liaison avec origin Remote
 - [x] Création du `README.md` et de la `LICENSE`
+
 
 ---
 
