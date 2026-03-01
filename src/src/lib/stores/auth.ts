@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import { account } from '$lib/appwrite';
-import type { Models } from 'appwrite';
+import { ID, type Models } from 'appwrite';
 
 export const user = writable<Models.User<Models.Preferences> | null>(null);
 export const isLoading = writable(true);
@@ -25,4 +25,14 @@ export async function login(email: string, password: string) {
 export async function logout() {
     await account.deleteSession('current');
     user.set(null);
+}
+
+export async function sendMagicLink(email: string) {
+    const redirectUrl = `${window.location.origin}/login/verify`;
+    await account.createMagicURLToken(ID.unique(), email, redirectUrl);
+}
+
+export async function verifyMagicLink(userId: string, secret: string) {
+    await account.updateMagicURLSession(userId, secret);
+    await loadUser();
 }

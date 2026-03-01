@@ -69,5 +69,34 @@
                 {loading ? "Connexion..." : "Se connecter"}
             </button>
         </form>
+
+        <div class="switch-login">
+            <p>Vous êtes un client ?</p>
+            <a href="/login/client">Accéder à mon Espace Client</a>
+        </div>
     </div>
 </div>
+
+<style>
+    .switch-login {
+        margin-top: 1.5rem;
+        text-align: center;
+        padding-top: 1rem;
+        border-top: 1px solid #eee;
+    }
+    .switch-login p {
+        margin: 0 0 0.5rem 0;
+        color: #666;
+        font-size: 0.9rem;
+    }
+    .switch-login a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+    .switch-login a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+</style>
