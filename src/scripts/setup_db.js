@@ -78,6 +78,7 @@ const SCHEMA = [
             { id: 'end', type: 'datetime', required: true },
             { id: 'notes', type: 'string', required: false, size: 10000 },
             { id: 'status', type: 'string', required: true, size: 50 },
+            { id: 'summary', type: 'string', required: false, size: 50000 },
         ]
     },
     {

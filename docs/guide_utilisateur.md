@@ -16,19 +16,18 @@ Votre objectif est de vous faire gagner du temps sur vos tâches administratives
 ### B. Traiter un rendez-vous (La magie de l'IA)
 Une fois un rendez-vous terminé :
 1. Cliquez sur le rendez-vous dans votre Timeline.
-2. Dans la zone de texte prévue, **saisissez quelques notes rapides** de ce qui s'est dit, ou collez une transcription si vous en avez une.
-3. Cliquez sur le bouton magique **"Générer la suite"** (Action IA).
+2. Dans la zone **Notes de la Séance**, saisissez quelques notes rapides de ce qui s'est dit.
+3. Cliquez sur le bouton **"Générer avec l'IA"**.
+4. L'Intelligence Artificielle va automatiquement analyser vos notes et rédiger un **compte-rendu propre** et structuré (Résumé, Décisions, Actions).
 
-L'Intelligence Artificielle va automatiquement :
-* Rédiger un **compte-rendu propre** et structuré.
-* Générer un brouillon de **facture PDF** basé sur le temps passé et le profil du client.
-* Préparer un **email de suivi** ou de feedback.
+### C. Gérer l'IA et Éditer les Comptes Rendus
+* **Édition manuelle** : Si le résumé généré par l'IA nécessite une retouche, cliquez simplement sur l'icône ✏️ dans l'encart "Résumé Généré". Vous pourrez modifier le texte et cliquer sur "Sauvegarder". Le résumé sera mis à jour.
+* **Configuration de l'IA (Mode Super-Admin)** : La plateforme peut s'interfacer avec différentes IA. Dans le fichier `.env` du serveur, vous pouvez choisir le fournisseur (ex: `AI_PROVIDER=lmstudio` pour un fonctionnement 100% privé et local, ou `AI_PROVIDER=openai` pour utiliser GPT-4).
 
-### C. Valider et Partager
-1. L'IA vous affiche les documents générés. **Relisez-les**.
-2. Vous pouvez utiliser l'**Éditeur de documents intégré** pour corriger le compte-rendu ou la facture avant envoi.
-3. Cliquez sur **"Valider"**. 
-4. Les documents sont automatiquement déposés dans le **Groupe Client** (un dossier partagé sécurisé) et le client en est notifié.
+### D. Valider et Partager
+1. L'IA vous affiche les documents générés (comptes-rendus, etc.). **Relisez-les**.
+2. Cliquez sur **"Valider"**. 
+3. Les documents sont automatiquement déposés dans le **Groupe Client** (un dossier partagé sécurisé) et le client en est notifié.
 
 ---
 
