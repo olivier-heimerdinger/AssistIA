@@ -44,12 +44,12 @@ services:
       - traefik.docker.network=appwrite
       - traefik.http.services.appwrite_api.loadbalancer.server.port=80
       - "traefik.http.routers.appwrite_api_http.entrypoints=appwrite_web"
-      - "traefik.http.routers.appwrite_api_http.rule=PathPrefix(`/v1`) || PathPrefix(`/auth`) || PathPrefix(`/.well-known`)"
+      - "traefik.http.routers.appwrite_api_http.rule=PathPrefix(`/v1`) || PathPrefix(`/auth`) || PathPrefix(`/.well-known`) || PathPrefix(`/versions`)"
       - "traefik.http.routers.appwrite_api_http.service=appwrite_api"
       - "traefik.http.routers.appwrite_api_http.priority=100"
       # https
       - "traefik.http.routers.appwrite_api_https.entrypoints=appwrite_websecure"
-      - "traefik.http.routers.appwrite_api_https.rule=PathPrefix(`/v1`) || PathPrefix(`/auth`) || PathPrefix(`/.well-known`)"
+      - "traefik.http.routers.appwrite_api_https.rule=PathPrefix(`/v1`) || PathPrefix(`/auth`) || PathPrefix(`/.well-known`) || PathPrefix(`/versions`)"
       - "traefik.http.routers.appwrite_api_https.service=appwrite_api"
       - "traefik.http.routers.appwrite_api_https.tls=true"
       - "traefik.http.routers.appwrite_api_https.priority=100"
@@ -893,38 +893,6 @@ services:
       - "traefik.http.routers.frontend_https.priority=10"
       - "traefik.http.routers.frontend_https.tls=true"
 
-  rustfs:
-    image: rustfs/rustfs:latest
-    container_name: assistia-rustfs
-    restart: unless-stopped
-    networks:
-      - appwrite
-    ports:
-      - 9000:9000
-    volumes:
-      - rustfs-data:/data
-    environment:
-      - RUSTFS_ACCESS_KEY=rustfsadmin
-      - RUSTFS_SECRET_KEY=rustfsadmin
-      - RUSTFS_CONSOLE_ENABLE=true
-      - RUSTFS_ADDRESS=:9000
-    command: --address :9000 --console-enable --access-key rustfsadmin --secret-key rustfsadmin /data
-    labels:
-      - "traefik.enable=true"
-      - "traefik.constraint-label-stack=appwrite"
-      - "traefik.docker.network=appwrite"
-      - "traefik.http.services.rustfs_console.loadbalancer.server.port=9001"
-      - "traefik.http.middlewares.rustfs_strip.stripprefix.prefixes=/storage"
-      - "traefik.http.routers.rustfs_console_http.rule=PathPrefix(`/storage`)"
-      - "traefik.http.routers.rustfs_console_http.middlewares=rustfs_strip"
-      - "traefik.http.routers.rustfs_console_http.entrypoints=appwrite_web"
-      - "traefik.http.routers.rustfs_console_http.priority=100"
-      - "traefik.http.routers.rustfs_console_https.rule=PathPrefix(`/storage`)"
-      - "traefik.http.routers.rustfs_console_https.middlewares=rustfs_strip"
-      - "traefik.http.routers.rustfs_console_https.entrypoints=appwrite_websecure"
-      - "traefik.http.routers.rustfs_console_https.tls=true"
-      - "traefik.http.routers.rustfs_console_https.priority=100"
-
 networks:
   gateway:
     name: gateway
@@ -942,6 +910,3 @@ volumes:
   appwrite-functions:
   appwrite-builds:
   appwrite-config:
-  rustfs-data:
-
-

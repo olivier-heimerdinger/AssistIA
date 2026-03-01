@@ -4,16 +4,16 @@
 - [ ] Mettre en place la stack Docker (Appwrite, SvelteKit, MinIO)
 - [ ] Configurer les collections Appwrite (Profils, Clients, RDVs, Factures, Groupes)
 - [ ] Paramétrer les droits et accès Appwrite (RBAC)
-- [ ] **Refactoring Docker** :
-    - [ ] Utiliser un réseau bridge pour Appwrite (domaine unique)
-    - [ ] Utiliser le backend pour stocker toutes les données plutôt qu'Appwrite directement
-    - [ ] Implémenter WebSockets pour les mises à jour temps réel
-    - [ ] Utiliser des chemins relatifs pour l'administration Appwrite et MinIO
-    - [ ] Utiliser des chemins relatifs pour les images et fichiers
-    - [ ] Remplacer MinIO par rustFS
+- [x] **Refactoring Docker** :
+    - [x] Utiliser un réseau bridge pour Appwrite (domaine unique)
+    - [x] Utiliser le backend pour stocker toutes les données plutôt qu'Appwrite directement (Option native locale au final)
+    - [x] Implémenter WebSockets pour les mises à jour temps réel
+    - [x] Utiliser des chemins relatifs pour l'administration Appwrite et MinIO
+    - [x] Utiliser des chemins relatifs pour les images et fichiers
+    - [x] Remplacer MinIO par rustFS (Ou option de stockage locale d'Appwrite)
 
 ## Epic 2 : Authentification & Espace Client
-- [ ] Créer le flux de connexion pour le Secrétaire (Admin)
+- [x] Créer le flux de connexion pour le Secrétaire (Admin)
 - [ ] Créer la logique d'invitations (magic link/email) pour les Clients
 - [ ] Développer le Dashboard Client (liste des RDV, Factures, Documents)
 
