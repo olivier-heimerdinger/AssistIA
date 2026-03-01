@@ -13,7 +13,7 @@
     - [x] Remplacer MinIO par rustFS (Ou option de stockage locale d'Appwrite)
 
 ## Epic 2 : Authentification & Espace Client
-- [ ] Créer le flux de connexion pour le Secrétaire (Admin)
+- [x] Créer le flux de connexion pour le Secrétaire (Admin)
 - [ ] Créer la logique d'invitations (magic link/email) pour les Clients
 - [ ] Développer le Dashboard Client (liste des RDV, Factures, Documents)
 
