@@ -3,6 +3,7 @@
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";
     import type { Snippet } from "svelte";
+    import ThemeToggle from "$lib/components/ThemeToggle.svelte";
 
     let { children }: { children: Snippet } = $props();
 
@@ -34,13 +35,22 @@
         </nav>
 
         <div class="sidebar-footer">
-            <div class="user-info">
-                <span class="user-avatar">{$user?.name?.charAt(0) || "C"}</span>
-                <span class="user-name">{$user?.name || $user?.email}</span>
+            <ThemeToggle />
+            <div class="user-profile">
+                <div class="user-info">
+                    <span class="user-avatar"
+                        >{$user?.name?.charAt(0) || "C"}</span
+                    >
+                    <span class="user-name">{$user?.name || $user?.email}</span>
+                </div>
+                <button
+                    onclick={handleLogout}
+                    class="logout-btn"
+                    title="Déconnexion"
+                >
+                    <span>🚪</span>
+                </button>
             </div>
-            <button onclick={handleLogout} class="logout-btn"
-                >Déconnexion</button
-            >
         </div>
     </aside>
 
@@ -51,31 +61,21 @@
 </div>
 
 <style>
-    :global(body) {
-        margin: 0;
-        background: #f4f6fa; /* Light, premium background */
-        font-family:
-            "Inter",
-            -apple-system,
-            BlinkMacSystemFont,
-            "Segoe UI",
-            Roboto,
-            sans-serif;
-        color: #1a1a1a;
-    }
-
     .client-layout {
         display: flex;
         height: 100vh;
         overflow: hidden;
+        /* Ensure global bg applies */
+        background: var(--color-bg);
+        color: var(--color-text);
     }
 
     /* Glassmorphism Sidebar */
     .glass-panel {
-        background: rgba(255, 255, 255, 0.7);
+        background: var(--glass-bg);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        border-right: 1px solid rgba(255, 255, 255, 0.5);
+        border-right: 1px solid var(--glass-border);
     }
 
     .sidebar {
@@ -95,7 +95,7 @@
     }
 
     .brand .icon {
-        color: #007bff;
+        color: var(--color-primary);
         font-size: 1.5rem;
     }
 
@@ -103,7 +103,7 @@
         margin: 0;
         font-size: 1.2rem;
         font-weight: 600;
-        color: #2d3748;
+        color: var(--color-text);
     }
 
     .nav-links {
@@ -115,34 +115,44 @@
 
     .nav-links a {
         text-decoration: none;
-        color: #4a5568;
+        color: var(--color-text-muted);
         padding: 0.75rem 1rem;
-        border-radius: 8px;
+        border-radius: var(--radius-sm);
         font-weight: 500;
         transition: all 0.2s;
     }
 
     .nav-links a:hover {
-        background: rgba(0, 123, 255, 0.05);
-        color: #007bff;
+        background: var(--color-primary-glow);
+        color: var(--color-primary);
     }
 
     .nav-links a.active {
-        background: #007bff;
+        background: var(--color-primary);
         color: white;
     }
 
     .sidebar-footer {
         margin-top: auto;
         padding-top: 1.5rem;
-        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        border-top: 1px solid var(--color-border);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
     }
 
     .user-info {
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        margin-bottom: 1rem;
+        overflow: hidden;
     }
 
     .user-avatar {
@@ -151,36 +161,41 @@
         justify-content: center;
         width: 36px;
         height: 36px;
-        background: #e2e8f0;
+        flex-shrink: 0;
+        background: var(--color-surface-2);
         border-radius: 50%;
         font-weight: bold;
-        color: #4a5568;
+        color: var(--color-text-muted);
     }
 
     .user-name {
         font-weight: 500;
         font-size: 0.9rem;
-        color: #2d3748;
+        color: var(--color-text);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
 
     .logout-btn {
-        width: 100%;
-        padding: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
         background: transparent;
-        color: #e53e3e;
-        border: 1px solid #fc8181;
-        border-radius: 8px;
+        color: var(--color-error);
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
         font-weight: 500;
         cursor: pointer;
         transition: all 0.2s;
     }
 
     .logout-btn:hover {
-        background: #fff5f5;
-        border-color: #e53e3e;
+        background: rgba(229, 62, 62, 0.1);
+        border-color: var(--color-error);
     }
 
     .content-area {

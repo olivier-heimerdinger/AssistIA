@@ -41,13 +41,13 @@
 
 <style>
     .glass-card {
-        background: rgba(255, 255, 255, 0.6);
+        background: var(--glass-bg);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.8);
-        border-radius: 16px;
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-md, 16px);
         padding: 1.5rem;
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
+        box-shadow: var(--shadow-card);
         display: flex;
         flex-direction: column;
         transition: box-shadow 0.2s;
@@ -55,8 +55,8 @@
 
     .glass-card:hover {
         box-shadow:
-            0 0 0 3px rgba(0, 123, 255, 0.15),
-            0 8px 32px rgba(31, 38, 135, 0.05);
+            0 0 0 3px var(--color-primary-glow),
+            var(--shadow-hover);
     }
 
     .widget-header {
@@ -69,7 +69,7 @@
     .widget-header h3 {
         margin: 0;
         font-size: 1.1rem;
-        color: #2d3748;
+        color: var(--color-text);
         font-weight: 600;
     }
 

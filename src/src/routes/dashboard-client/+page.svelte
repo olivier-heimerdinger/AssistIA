@@ -100,12 +100,12 @@
     .dashboard-header h1 {
         font-size: 2rem;
         font-weight: 700;
-        color: #1a202c;
+        color: var(--color-text);
         margin: 0 0 0.5rem 0;
     }
 
     .subtitle {
-        color: #718096;
+        color: var(--color-text-muted);
         font-size: 1.1rem;
         margin: 0;
     }
@@ -118,7 +118,7 @@
 
     :global(.view-all) {
         font-size: 0.85rem;
-        color: #007bff;
+        color: var(--color-primary);
         text-decoration: none;
         font-weight: 500;
     }
@@ -136,47 +136,47 @@
     }
 
     .calendar-icon {
-        background: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         min-width: 60px;
         min-height: 70px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     }
 
     .calendar-icon .day {
         font-size: 1.5rem;
         font-weight: 700;
-        color: #2d3748;
+        color: var(--color-text);
     }
 
     .calendar-icon .month {
         font-size: 0.8rem;
         font-weight: 600;
-        color: #e53e3e;
+        color: var(--color-error);
         text-transform: uppercase;
     }
 
     .info h4 {
         margin: 0 0 0.4rem 0;
         font-size: 1.05rem;
-        color: #1a202c;
+        color: var(--color-text);
     }
 
     .info .time {
         margin: 0 0 0.25rem 0;
-        color: #007bff;
+        color: var(--color-primary);
         font-weight: 500;
         font-size: 0.95rem;
     }
 
     .info .practitioner {
         margin: 0;
-        color: #718096;
+        color: var(--color-text-muted);
         font-size: 0.85rem;
     }
 
@@ -188,14 +188,14 @@
     }
 
     .badge.upcoming {
-        background: #ebf8ff;
-        color: #3182ce;
+        background: var(--color-primary-glow);
+        color: var(--color-primary);
     }
 
     .btn {
         flex: 1;
         padding: 0.6rem;
-        border-radius: 8px;
+        border-radius: var(--radius-sm);
         font-weight: 500;
         font-size: 0.9rem;
         cursor: pointer;
@@ -204,27 +204,27 @@
     }
 
     .btn:hover {
-        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+        box-shadow: 0 0 0 3px var(--color-primary-glow);
     }
 
     .btn.primary {
-        background: #007bff;
+        background: var(--color-primary);
         color: white;
     }
 
     .btn.primary:hover {
-        background: #0056b3;
+        opacity: 0.9;
     }
 
     .btn.secondary {
-        background: white;
-        border-color: #e2e8f0;
-        color: #4a5568;
+        background: var(--color-surface);
+        border-color: var(--color-border);
+        color: var(--color-text-muted);
     }
 
     .btn.secondary:hover {
-        background: #f7fafc;
-        border-color: #cbd5e0;
+        background: var(--color-surface-2);
+        color: var(--color-text);
     }
 
     /* Documents List */
@@ -242,16 +242,16 @@
         align-items: center;
         gap: 1rem;
         padding: 0.75rem;
-        background: rgba(255, 255, 255, 0.5);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 8px;
-        transition: background 0.2s;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
+        transition: all 0.2s;
         cursor: pointer;
     }
 
     .doc-item:hover {
-        background: white;
-        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+        background: var(--color-surface-2);
+        box-shadow: 0 0 0 3px var(--color-primary-glow);
     }
 
     .doc-icon {
@@ -265,13 +265,13 @@
 
     .doc-name {
         font-weight: 500;
-        color: #2d3748;
+        color: var(--color-text);
         font-size: 0.95rem;
     }
 
     .doc-meta {
         font-size: 0.8rem;
-        color: #718096;
+        color: var(--color-text-muted);
         margin-top: 0.2rem;
     }
 
@@ -291,15 +291,16 @@
         justify-content: space-between;
         align-items: center;
         padding: 0.85rem 1rem;
-        background: white;
-        border-radius: 8px;
-        border: 1px solid #edf2f7;
-        transition: box-shadow 0.2s;
+        background: var(--color-surface);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--color-border);
+        transition: all 0.2s;
         cursor: pointer;
     }
 
     .invoice-item:hover {
-        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+        box-shadow: 0 0 0 3px var(--color-primary-glow);
+        background: var(--color-surface-2);
     }
 
     .inv-left {
@@ -309,12 +310,12 @@
 
     .inv-id {
         font-weight: 600;
-        color: #2d3748;
+        color: var(--color-text);
         font-size: 0.9rem;
     }
 
     .inv-date {
-        color: #718096;
+        color: var(--color-text-muted);
         font-size: 0.8rem;
         margin-top: 0.2rem;
     }
@@ -327,26 +328,26 @@
 
     .inv-amount {
         font-weight: 700;
-        color: #1a202c;
+        color: var(--color-text);
         font-size: 1rem;
     }
 
     .status-badge {
         font-size: 0.7rem;
         padding: 0.2rem 0.5rem;
-        border-radius: 4px;
+        border-radius: var(--radius-sm);
         font-weight: 600;
         margin-top: 0.3rem;
         text-transform: uppercase;
     }
 
     .status-badge.paid {
-        background: #c6f6d5;
-        color: #22543d;
+        background: rgba(34, 197, 94, 0.15);
+        color: var(--color-success);
     }
 
     .status-badge.pending {
-        background: #feebc8;
-        color: #c05621;
+        background: rgba(229, 62, 62, 0.15);
+        color: var(--color-error);
     }
 </style>
