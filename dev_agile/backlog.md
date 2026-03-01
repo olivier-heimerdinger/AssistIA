@@ -14,8 +14,8 @@
 
 ## Epic 2 : Authentification & Espace Client
 - [x] Créer le flux de connexion pour le Secrétaire (Admin)
-- [ ] Créer la logique d'invitations (magic link/email) pour les Clients
-- [ ] Développer le Dashboard Client (liste des RDV, Factures, Documents)
+- [x] Créer la logique d'invitations (magic link/email) pour les Clients
+- [x] Développer le Dashboard Client (liste des RDV, Factures, Documents)
 
 ## Epic 3 : Core Features (Rendez-vous & IA)
 - [ ] Implémenter la synchronisation avec Google/Outlook Calendar

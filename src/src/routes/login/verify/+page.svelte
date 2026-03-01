@@ -21,9 +21,8 @@
             await verifyMagicLink(userId, secret);
             status = "Connexion réussie !";
             setTimeout(() => {
-                // Future route will be /dashboard-client depending on user role
-                // Defaulting to root dashboard for now until RBAC routing is setup
-                goto("/dashboard");
+                // Future logic: check user roles here
+                goto("/dashboard-client");
             }, 1000);
         } catch (e: any) {
             status = "Erreur d'authentification";

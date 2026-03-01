@@ -18,7 +18,8 @@
 		if (!$user && !isPublic) {
 			goto("/login");
 		}
-		if ($user && $page.url.pathname === "/login") {
+		if ($user && isPublic) {
+			// Redirect authenticated users trying to access login pages
 			goto("/dashboard");
 		}
 	});
