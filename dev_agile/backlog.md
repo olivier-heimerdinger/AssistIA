@@ -2,8 +2,8 @@
 
 ## Epic 1 : Infrastructure & Base de Données
 - [ ] Mettre en place la stack Docker (Appwrite, SvelteKit, MinIO)
-- [ ] Configurer les collections Appwrite (Profils, Clients, RDVs, Factures, Groupes)
-- [ ] Paramétrer les droits et accès Appwrite (RBAC)
+- [x] Configurer les collections Appwrite (Profils, Clients, RDVs, Factures, Groupes)
+- [x] Paramétrer les droits et accès Appwrite (RBAC)
 - [x] **Refactoring Docker** :
     - [x] Utiliser un réseau bridge pour Appwrite (domaine unique)
     - [x] Utiliser le backend pour stocker toutes les données plutôt qu'Appwrite directement (Option native locale au final)
