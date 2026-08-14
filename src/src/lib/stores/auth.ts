@@ -17,7 +17,13 @@ export async function loadUser() {
 }
 
 export async function login(email: string, password: string) {
-    await account.createEmailPasswordSession(email, password);
+    try {
+        await account.createEmailPasswordSession(email, password);
+    } catch (err: any) {
+        if (err.type !== 'user_session_already_exists') {
+            throw err;
+        }
+    }
     const session = await account.get();
     user.set(session);
 }

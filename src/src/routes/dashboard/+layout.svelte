@@ -1,11 +1,15 @@
 <script lang="ts">
     import { user, logout } from "$lib/stores/auth";
     import { goto } from "$app/navigation";
+    import { page } from "$app/stores";
     import { onMount } from "svelte";
     import type { Snippet } from "svelte";
     import ThemeToggle from "$lib/components/ThemeToggle.svelte";
+    import { uiStore } from "$lib/stores/ui.svelte";
 
     let { children }: { children: Snippet } = $props();
+
+    const isBuilder = $derived($page.url.pathname.includes("/builder/"));
 
     onMount(() => {
         // Enforce authentication
@@ -20,7 +24,7 @@
     }
 </script>
 
-<div class="app-shell">
+<div class="app-shell" class:sidebar-hidden={!uiStore.showGlobalSidebar}>
     <aside class="sidebar glass-panel">
         <div class="sidebar-brand">
             <span class="brand-icon">✧</span>
@@ -40,7 +44,7 @@
                 <span class="nav-icon">🧾</span>
                 Factures
             </a>
-            <a href="#documents" class="nav-item">
+            <a href="/dashboard/documents" class="nav-item">
                 <span class="nav-icon">📁</span>
                 Documents
             </a>
@@ -70,7 +74,7 @@
         </div>
     </aside>
 
-    <main class="main-content">
+    <main class="main-content" class:builder-mode={isBuilder}>
         {@render children()}
     </main>
 </div>
@@ -83,6 +87,11 @@
         overflow: hidden;
         background: var(--color-bg);
         color: var(--color-text);
+        transition: grid-template-columns 0.3s ease;
+    }
+
+    .app-shell.sidebar-hidden {
+        grid-template-columns: 0px 1fr;
     }
 
     /* Glassmorphism Sidebar */
@@ -100,6 +109,14 @@
         box-shadow: 2px 0 15px rgba(0, 0, 0, 0.03);
         z-index: 10;
         height: 100vh;
+        transition:
+            transform 0.3s ease,
+            opacity 0.3s ease;
+    }
+
+    .app-shell.sidebar-hidden .sidebar {
+        transform: translateX(-260px);
+        opacity: 0;
     }
 
     .sidebar-brand {
@@ -226,5 +243,11 @@
         padding: 2.5rem;
         overflow-y: auto;
         flex: 1;
+        transition: padding 0.3s ease;
+    }
+
+    .main-content.builder-mode {
+        padding: 0;
+        overflow: hidden;
     }
 </style>

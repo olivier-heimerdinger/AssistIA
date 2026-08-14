@@ -4,6 +4,8 @@ const { Client, Databases } = require('node-appwrite');
 const endpoint = process.env.APPWRITE_ENDPOINT || 'http://localhost/v1';
 const projectId = process.env.APPWRITE_PROJECT_ID;
 const apiKey = process.env.APPWRITE_API_KEY;
+console.log('projectId', projectId)
+console.log('apiKey', apiKey)
 
 if (!projectId || !apiKey) {
     console.error("Missing APPWRITE_PROJECT_ID or APPWRITE_API_KEY in .env");
@@ -100,11 +102,15 @@ async function init() {
         await addString('groups', 'description', 1000, false);
         await addString('groups', 'members', 36, false, true);
 
-        // Documents
-        await addString('documents', 'fileId', 36, true);
-        await addString('documents', 'groupId', 36, true);
-        await addString('documents', 'type', 32, true);
+        // Documents (Shared for bucket files and Rich Text Builder)
+        await addString('documents', 'fileId', 36, false); // Made optional for rich text
+        await addString('documents', 'groupId', 36, false);
+        await addString('documents', 'type', 32, false);
         await addString('documents', 'ownerId', 36, true);
+        // Rich Text Editor specific fields
+        await addString('documents', 'title', 255, false);
+        await addString('documents', 'blocks', 15000, false);
+        await addString('documents', 'clientId', 36, false);
 
         console.log("\nSchema initialization completed! Attributes are provisioning in the background.");
 
